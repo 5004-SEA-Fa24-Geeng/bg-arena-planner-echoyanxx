@@ -4,6 +4,7 @@ Name:huanhuan yan
 Github Account name:echoyanxx
 
 Link to Assignment on Github: (copy and paste the link to your assignment repo here)
+https://github.com/5004-SEA-Fa24-Geeng/bg-arena-planner-echoyanxx.git
 
 How many hours did it take you to complete this assignment (estimate)?
 
