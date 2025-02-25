@@ -25,7 +25,7 @@ public class BoardGame {
     /** Minimum play time in minutes. */
     private final int minPlayTime;
     /** Average difficulty of the game. */
-    private final double difficulty; // avgweight
+    private final double difficulty; // avg weight
     /** Rank of the game. */
     private final int rank;
     /** Average rating of the game. */

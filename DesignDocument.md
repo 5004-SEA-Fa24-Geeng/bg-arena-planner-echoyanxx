@@ -11,15 +11,111 @@ Place your class diagrams below. Make sure you check the file in the browser on 
 ### Provided Code
 
 Provide a class diagram for the provided code as you read through it.  For the classes you are adding, you will create them as a separate diagram, so for now, you can just point towards the interfaces for the provided code diagram.
-
-
+![img.png](img.png)
 
 ### Your Plans/Design
 
-Create a class diagram for the classes you plan to create. This is your initial design, and it is okay if it changes. Your starting points are the interfaces. 
+Create a class diagram for the classes you plan to create. This is your initial design, and it is okay if it changes. Your starting points are the interfaces.
+A ..> B : uses
 
+A -- B : has
 
+ClassA --|> BaseClass  : extends
 
+ClassA ..|> MyInterface : implements
+
+```mermaid
+---
+title: Arena planner
+---
+classDiagram
+    direction LR
+    BGArenaPlanner ..> Planner :use
+    BGArenaPlanner ..> GameList :use
+    BGArenaPlanner ..> ConsoleApp :use
+    ConsoleApp ..>  BoardGame: use
+    ConsoleApp..> IPlanner:use
+    ConsoleApp ..> IGameList: use
+    GameList ..|>  IGameList : implements
+    Planner ..|>  IPlanner : implements
+    GamesLoader ..> BoardGame: use
+    GamesLoader ..> DataGame: use
+    
+    class BGArenaPlanner{
+        - String DEFAULT_COLLECTION
+        - BGArenaPlanner()
+        + void main(String[] args)
+    }
+    class BoardGame{
+        - String name
+        - int id
+        - int minPlayers
+        - int maxPlayers
+        - int maxPlayTime
+        - int minPlayTime
+        - double difficulty
+        - int rank
+        - double averageRating
+        - int yearPublished
+        + BoardGame()
+        + String getName()
+        + int getId()
+        + int getMinPlayers()
+        + int getMaxPlayers()
+        + int getMaxPlayTime()
+        + int getMinPlayTime()
+        + double getDifficulty()
+        + int getRank()
+        + double getRating()
+        + int getYearPublished()
+        + String toStringWithInfo()
+        + String toString()
+        + boolean equals(Object obj)
+        + int hashCode()
+        + void main(String[] args)
+    }
+    class ConsoleApp{
+        - Scanner IN
+        - String DEFAULT_FILENAME
+        - Random RND
+        - Scanner current
+        - IGameList gameList
+        - IPlanner planner
+        - enum ConsoleText 
+        - Properties CTEXT
+        + ConsoleApp(IGameList gameList, IPlanner planner)
+        + void start()
+        + void randomNumber()
+        + void processHelp()
+        + void processFilter()
+        - void printFilterStream(Stream games, GameData sortON)
+        - void processListCommands()
+        - void printCurrentList()
+        - ConsoleText nextCommand()
+        - String remainder()
+        - String getInput(String format, Object... args)
+        - void printOutput(String format, Object... output)
+        + String toString()
+        + ConsoleText fromString()
+        + map processHeade(String)
+    }
+    class GameList{
+    }
+    class IGameList{
+        <<interface>>
+    }
+    class Planner{
+    }
+    class IPlanner{
+        <<interface>>
+    }
+    class GamesLoader{
+        - String DELIMITER
+        - GamesLoader()
+        + Set<> loadGamesFile(String filename)
+        + BoardGame toBoardGame(String line, Map<GameData, Integer> columnMap)
+    }
+```
 
 
 ## (INITIAL DESIGN): Tests to Write - Brainstorm
@@ -36,8 +132,29 @@ Write a test (in english) that you can picture for the class diagram you have cr
 
 You should feel free to number your brainstorm. 
 
-1. Test 1..
-2. Test 2..
+1. Test 1..class Planner 
+* filter(String filter) method:
+  for this method, we need a test that we put a text input and filter result will be all the board games with this text input.Assumes the results are sorted in
+  ascending order.like : filter(season) will output "zelda season 1" "zelda season 2" "final fantasy season 7"......
+* filter(String filter, GameData sortOn) method: base on the one game data ,filter result will be all the board games with this text input.
+* filter(String filter, GameData sortOn, boolean ascending):we need a test that can contain some arithmetic comparison.like: minPlayers>4 would filter the board games to only those with a minimum number of players greater than 4.
+* reset():test will resets the collection to have no filters applied.
+2. Test 2.. class GameList
+* assume my game list is already have 4 : [zelda season 1,zelda season 2,Wu Kong:Black Myth,final fantasy season 7]
+* getGameNames():show all the content in the list.Output should be "zelda season 1","zelda season 2","Wu Kong:Black Myth","final fantasy season 7".
+* count():Count the number of games in the list.Output should be 4.
+* saveGame(String filename):Save the list of this 4 games to a local file.
+* addToList(String str, Stream<BoardGame> filtered): Put the filtered game into my game list through number. Assume the filtered list is [game1,game2,game3,game4,game5].
+  * str = 1, add game1 to my game list.
+  * str = 2, add game2 to my game list.
+  * str = 1-3, add game1,game2 and game3 to my game list.
+  * str = all, add all 5 games in my game list.
+  * str = 6, throw an exception because we just have 5 in our filtered list.
+* removeFromList(String str):remove the element in the current game list. Assume my game list is already have 4 : [zelda season 1,zelda season 2,Wu Kong:Black Myth,final fantasy season 7]
+  * str = 1, delete zelda season 1.
+  * str = 1-3,delete zelda season 1,zelda season 2 and Wu Kong:Black Myth from my game list.
+  * str = all, empty my game list.
+  * str = 5, throw an exception because we just have 4 in our filtered list.c
 
 
 
