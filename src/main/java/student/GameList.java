@@ -82,13 +82,9 @@ public class GameList implements IGameList {
         // ADD_ALL special case
         if (str.equalsIgnoreCase(IGameList.ADD_ALL)) {
             games.addAll(filtered.toList());
-        }
-        // integer(s)
-        else if (str.matches("\\d+(-\\d+)?")) {
+        } else if (str.matches("\\d+(-\\d+)?")) {
             games.addAll(filterByIndex(str, filtered));
-        }
-        // Game name
-        else {
+        } else {
             BoardGame found = findByName(str, filtered);
             if (found == null) {
                 throw new IllegalArgumentException(
@@ -104,13 +100,9 @@ public class GameList implements IGameList {
         // ADD_ALL special case
         if (str.equalsIgnoreCase(IGameList.ADD_ALL)) {
             clear();
-        }
-        // integer(s)
-        else if (str.matches("\\d+(-\\d+)?")) {
+        } else if (str.matches("\\d+(-\\d+)?")) {
             toRemove = filterByIndexList(str, new ArrayList<>(games));
-        }
-        // Game name
-        else {
+        } else {
             BoardGame found = findByName(str, games.stream());
             if (found != null) {
                 toRemove.add(found);
