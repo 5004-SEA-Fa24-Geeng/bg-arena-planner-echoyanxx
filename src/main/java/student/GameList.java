@@ -81,10 +81,12 @@ public class GameList implements IGameList {
     public void addToList(String str, Stream<BoardGame> filtered) throws IllegalArgumentException {
         // ADD_ALL special case
         if (str.equalsIgnoreCase(IGameList.ADD_ALL)) {
-            games.addAll(filtered.toList());}
+            games.addAll(filtered.toList());
+        }
         // integer(s)
         else if (str.matches("\\d+(-\\d+)?")) {
-            games.addAll(filterByIndex(str, filtered));}
+            games.addAll(filterByIndex(str, filtered));
+        }
         // Game name
         else {
             BoardGame found = findByName(str, filtered);
@@ -101,10 +103,12 @@ public class GameList implements IGameList {
         List<BoardGame> toRemove = new ArrayList<>();
         // ADD_ALL special case
         if (str.equalsIgnoreCase(IGameList.ADD_ALL)) {
-            clear();}
+            clear();
+        }
         // integer(s)
         else if (str.matches("\\d+(-\\d+)?")) {
-            toRemove = filterByIndexList(str, new ArrayList<>(games));}
+            toRemove = filterByIndexList(str, new ArrayList<>(games));
+        }
         // Game name
         else {
             BoardGame found = findByName(str, games.stream());
