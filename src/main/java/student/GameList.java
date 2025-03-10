@@ -1,16 +1,24 @@
 package student;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
 
+
+/**
+ * A concrete implementation of IGameList.
+ * this class uses a HashSet to store BoardGame objects,based on the equal logic.
+ * Games are returned in case-insensitive ascending order based on their name.
+ * The class also provides functionality to add and remove games by name
+ * or by integer index ranges, as well as saving the list of games to a file.
+ */
 public class GameList implements IGameList {
 
     private final Set<BoardGame> games;
@@ -22,11 +30,18 @@ public class GameList implements IGameList {
         this.games = new HashSet<>();
     }
 
+    /**
+     * @return a sorted list (ascending, ignoring case) of all game names
+     */
     @Override
     public List<String> getGameNames() {
-        return games.stream().map(BoardGame::getName).sorted(String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());
+        return games.stream().map(BoardGame::getName).
+                sorted(String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());
     }
 
+    /**
+     * <p>Removes all games from this list.</p>
+     */
     @Override
     public void clear() {
         games.clear();
@@ -101,7 +116,8 @@ public class GameList implements IGameList {
         toRemove.forEach(games::remove);
     }
 
-    private List<BoardGame> filterByIndexList(String str, List<BoardGame> filteredList) throws IllegalArgumentException {
+    private List<BoardGame> filterByIndexList(String str, List<BoardGame> filteredList)
+            throws IllegalArgumentException {
         // Index range
         if (str.contains("-")) {
             String[] parts = str.split("-");

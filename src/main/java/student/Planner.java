@@ -1,7 +1,6 @@
 package student;
 
 
-import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -20,23 +19,23 @@ public class Planner implements IPlanner {
         return filter(filter, GameData.NAME, true);
     }
 
-    private Stream<BoardGame> filterSingle (String filter, Stream<BoardGame> filteredGames){
+    private Stream<BoardGame> filterSingle(String filter, Stream<BoardGame> filteredGames) {
         //handle getting operation, game attribute to filter on
         Operations operator = Operations.getOperatorFromStr(filter);
-        if (operator == null){
+        if (operator == null) {
             return filteredGames;
         }
         //remove space
         filter = filter.replaceAll(" ", "");
 
         String[] parts = filter.split(operator.getOperator());
-        if(parts.length != 2){
+        if (parts.length != 2) {
             return filteredGames;
         }
         GameData column;
-        try{
+        try {
             column = GameData.fromString(parts[0]);
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return filteredGames;
         }
         //more work here to filter the games

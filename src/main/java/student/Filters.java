@@ -4,10 +4,11 @@ package student;
  *
  */
 public final class Filters {
-    private Filters() {}
+    private Filters() {
+    }
 
-    public static boolean filter(BoardGame game , GameData column,
-                                 Operations op, String value){
+    public static boolean filter(BoardGame game, GameData column,
+                                 Operations op, String value) {
         return switch (column) {
             case NAME ->
                 //filter the name
@@ -27,7 +28,7 @@ public final class Filters {
         };
     }
 
-    public static boolean filterString(String gameData, Operations op, String value){
+    public static boolean filterString(String gameData, Operations op, String value) {
         gameData = gameData.replaceAll(" ", "");
         return switch (op) {
             case EQUALS -> gameData.equals(value);
@@ -40,7 +41,7 @@ public final class Filters {
         };
     }
 
-    public static boolean filterNumberFloat(double gameData, Operations op, String value){
+    public static boolean filterNumberFloat(double gameData, Operations op, String value) {
         double floatValue = Double.parseDouble(value);
 
         return switch (op) {
@@ -54,7 +55,8 @@ public final class Filters {
         };
 
     }
-    public static boolean filterNum(int gameData, Operations op, String value){
+
+    public static boolean filterNum(int gameData, Operations op, String value) {
         return filterNumberFloat(gameData, op, value);
     }
 }
