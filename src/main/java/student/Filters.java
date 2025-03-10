@@ -20,15 +20,20 @@ public final class Filters {
             case YEAR -> filterNum(game.getYearPublished(), op, value);
             case MAX_TIME -> filterNum(game.getMaxPlayTime(), op, value);
             case MIN_TIME -> filterNum(game.getMinPlayTime(), op, value);
+            case RATING -> filterNumberFloat(game.getRating(), op, value);
+            case DIFFICULTY -> filterNumberFloat(game.getDifficulty(), op, value);
             default ->
                     throw new IllegalArgumentException("The column " + column.getColumnName() + " is not supported in filtering");
         };
     }
 
     public static boolean filterString(String gameData, Operations op, String value){
+        gameData = gameData.toLowerCase();
+        value = value.toLowerCase();
+
         return switch (op) {
             case EQUALS -> gameData.equals(value);
-            case NOT_EQUALS -> !gameData.equals(value);
+            case NOT_EQUALS -> !gameData.equalsIgnoreCase(value);
             case CONTAINS -> gameData.contains(value);
             case LESS_THAN_EQUALS -> gameData.compareTo(value) <= 0;
             case GREATER_THAN_EQUALS -> gameData.compareTo(value) >= 0;
