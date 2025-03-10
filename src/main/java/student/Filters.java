@@ -28,7 +28,7 @@ public final class Filters {
     }
 
     public static boolean filterString(String gameData, Operations op, String value){
-        value = value.replaceAll(" ", "");
+        gameData = gameData.replaceAll(" ", "");
         return switch (op) {
             case EQUALS -> gameData.equals(value);
             case NOT_EQUALS -> !gameData.equalsIgnoreCase(value);
