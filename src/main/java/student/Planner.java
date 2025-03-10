@@ -51,12 +51,9 @@ public class Planner implements IPlanner {
         System.out.print("Operator is :" + operator);
         System.out.print("GameData is :" + column);
         System.out.println(" Value is :" + value);
-        // Filters.filter(board game,game data, operator, String value)
-        // Stream<BoardGame> filteredGames
-        // List<BoardGame> filteredGameList = filteredGames.filter(game -> Filters.filter(game, column, operator, value)).toList();
 
         return filteredGames.filter(game -> Filters.filter(game, column, operator, value));
-        }
+    }
 
 
     @Override
@@ -74,16 +71,7 @@ public class Planner implements IPlanner {
             remainingGames = filterSingle(oneFilter, remainingGames);
         }
 
-        // Build a comparator based on the `sortOn` logic
-        Comparator<BoardGame> comparator =
-                Comparator.comparing((BoardGame g) -> g.toStringWithInfo(sortOn).toLowerCase());
-
-        // If not ascending, reverse the comparator
-        if (!ascending) {
-            comparator = comparator.reversed();
-        }
-
-        return remainingGames.sorted(comparator);
+        return Sorting.sort(remainingGames, sortOn, ascending);
     }
 
     @Override

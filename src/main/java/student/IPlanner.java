@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * An important note, while most of methods return streams, each method builds on each other / is
  * progressive. As such if filter by minPlayers, then filter by maxPlayers, the maxPlayers filter
  * should be applied to the results of the minPlayers filter unless reset is called between.
- * 
+ *
  */
 public interface IPlanner {
 
@@ -83,7 +83,6 @@ public interface IPlanner {
      * Spaces should be ignored, but can be included for readability. For example:
      * 
      * minPlayers > 4
-     * 
      * is the same as
      * 
      * minPlayers>4

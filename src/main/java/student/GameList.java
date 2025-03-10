@@ -128,8 +128,8 @@ public class GameList implements IGameList {
         return filterByIndexList(str, filteredList);
     }
 
-    private BoardGame findByName(String str, Stream<BoardGame> filtered) throws IllegalArgumentException {
-        return filtered
+    private BoardGame findByName(String str, Stream<BoardGame> stream) throws IllegalArgumentException {
+        return stream
                 .filter(bg -> bg.getName().equalsIgnoreCase(str))
                 .findFirst()
                 .orElse(null);
