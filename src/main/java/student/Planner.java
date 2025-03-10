@@ -76,7 +76,7 @@ public class Planner implements IPlanner {
 
         // Build a comparator based on the `sortOn` logic
         Comparator<BoardGame> comparator =
-                Comparator.comparing((BoardGame g) -> g.toStringWithInfo(sortOn));
+                Comparator.comparing((BoardGame g) -> g.toStringWithInfo(sortOn).toLowerCase());
 
         // If not ascending, reverse the comparator
         if (!ascending) {
