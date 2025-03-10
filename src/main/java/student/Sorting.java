@@ -2,11 +2,26 @@ package student;
 
 import java.util.Comparator;
 import java.util.stream.Stream;
+/**
+ * A utility class that provides sorting functionality for BoardGame objects
+ * based on a specified attribute.
+ */
 
-public class Sorting {
+public final class Sorting {
 
-    private Sorting() {}
+    private Sorting() { }
 
+    /**
+     * Sorts a stream of BoardGame objects by the specified game data attribute.
+     * The sorting is performed by comparing the string representation of each
+     *
+     * @param games     the stream of BoardGame objects to be sorted
+     * @param sortOn    the attribute column to sort by
+     * @param ascending if code true, sort in ascending order; otherwise, sort in descending order
+     * @return a new Stream<BoardGame> that is sorted according to the specified parameters
+     *
+     * @throws NullPointerException if games or ortOn is null
+     */
     public static Stream<BoardGame> sort(Stream<BoardGame> games, GameData sortOn, boolean ascending) {
         // Build a comparator based on the `sortOn` logic
         Comparator<BoardGame> comparator =
