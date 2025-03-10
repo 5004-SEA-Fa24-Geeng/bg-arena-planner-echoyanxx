@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 
 public class GameList implements IGameList {
@@ -39,6 +40,13 @@ public class GameList implements IGameList {
     @Override
     public void saveGame(String filename) {
         List<String> sortedNames = getGameNames();
+        File file = new File(filename);
+        // Ensure parent directories exist
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (String name : sortedNames) {
                 writer.write(name);
