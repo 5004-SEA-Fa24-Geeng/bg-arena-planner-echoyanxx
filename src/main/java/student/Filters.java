@@ -38,8 +38,8 @@ public static boolean filter(BoardGame game, GameData column,
             case RATING -> filterNumberFloat(game.getRating(), op, value);
             case DIFFICULTY -> filterNumberFloat(game.getDifficulty(), op, value);
             default ->
-                    throw new IllegalArgumentException("The column " +
-                            column.getColumnName() + " is not supported in filtering");
+                    throw new IllegalArgumentException("The column "
+                            + column.getColumnName() + " is not supported in filtering");
         };
     }
 
@@ -81,6 +81,17 @@ public static boolean filter(BoardGame game, GameData column,
 
     }
 
+    /**
+     * A convenience method that interprets a gameData integer as a double for filtering.
+     * This allows reuse of the logic even for integer-based columns
+     *
+     * @param gameData an integer value from BoardGame
+     * @param op       the comparison operation (e.g. LESS_THAN, NOT_EQUALS)
+     * @param value    the string value to parse as a double
+     * @return true if gameData meets the specified condition
+     * @throws NumberFormatException if value cannot be parsed as a double
+     * @throws IllegalArgumentException if the operation is unknown or unsupported
+     */
     public static boolean filterNum(int gameData, Operations op, String value) {
         return filterNumberFloat(gameData, op, value);
     }
