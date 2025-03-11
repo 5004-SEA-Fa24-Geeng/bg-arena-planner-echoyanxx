@@ -1,13 +1,27 @@
 package student;
 
 /**
- *
+ * A class that provides filtering logic for BoardGame objects
+ * based on various attributes (such as name, players, rating, etc.) and
+ * comparison operations.
  */
 public final class Filters {
     private Filters() {
     }
 
-    public static boolean filter(BoardGame game, GameData column,
+/**
+ * Applies a filter on a single BoardGame object using the
+ * specified column, operation, and value.
+ * Based on the column, this method delegates to one of the
+ * appropriate helper methods
+ * @param game   the BoardGame instance to check
+ * @param column the specific attribute/column of the BoardGame to be filtered
+ * @param op     the comparison operation (e.g., EQUALS, GREATER_THAN)
+ * @param value  the string value to compare against
+ * @return true if the game matches the filter conditions, return false otherwise
+ * @throws IllegalArgumentException if the requested column is unsupported
+ */
+public static boolean filter(BoardGame game, GameData column,
                                  Operations op, String value) {
         return switch (column) {
             case NAME ->
@@ -24,10 +38,21 @@ public final class Filters {
             case RATING -> filterNumberFloat(game.getRating(), op, value);
             case DIFFICULTY -> filterNumberFloat(game.getDifficulty(), op, value);
             default ->
-                    throw new IllegalArgumentException("The column " + column.getColumnName() + " is not supported in filtering");
+                    throw new IllegalArgumentException("The column " +
+                            column.getColumnName() + " is not supported in filtering");
         };
     }
 
+    /**
+     * Filters a string value based on a given operation. For example, if op is EQUALS,
+     * this method checks whether gameData is exactly equal to value, ignoring
+     * case if that is desired by the caller.
+     *
+     * @param gameData the actual string to test
+     * @param op       the comparison operation
+     * @param value    the string value to compare with gameData
+     * @return {@code true} if {@code gameData} meets the condition defined by op
+     */
     public static boolean filterString(String gameData, Operations op, String value) {
         gameData = gameData.replaceAll(" ", "");
         return switch (op) {
