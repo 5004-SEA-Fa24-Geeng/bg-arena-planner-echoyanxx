@@ -103,7 +103,8 @@ public class Planner implements IPlanner {
 
 
     /**
-     * Applies the specified filter to the board games, then sorts the results by the given column in the specified order.
+     * Applies the specified filter to the board games, then sorts the results by the given column
+     * in the specified order.
      * @param filter    the filter to apply, specified as a comma-separated list of filter expressions
      * @param sortOn    the GameData attribute to sort on
      * @param ascending if @code true, sort in ascending order; otherwise, sort in descending order
