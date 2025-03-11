@@ -19,8 +19,6 @@ public final class Sorting {
      * @param sortOn    the attribute column to sort by
      * @param ascending if code true, sort in ascending order; otherwise, sort in descending order
      * @return a new Stream<BoardGame> that is sorted according to the specified parameters
-     *
-     * @throws NullPointerException if games or ortOn is null
      */
     public static Stream<BoardGame> sort(Stream<BoardGame> games, GameData sortOn, boolean ascending) {
         // Build a comparator based on the `sortOn` logic

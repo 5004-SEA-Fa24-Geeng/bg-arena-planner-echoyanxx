@@ -168,7 +168,7 @@ For the final design, you just need to do a single diagram that includes both th
 > [!WARNING]
 > If you resubmit your assignment for manual grading, this is a section that often needs updating. You should double check with every resubmit to make sure it is up to date.
 
-
+![img_2.png](img_2.png) 
 
 
 
@@ -178,3 +178,5 @@ For the final design, you just need to do a single diagram that includes both th
 > The value of reflective writing has been highly researched and documented within computer science, from learning to information to showing higher salaries in the workplace. For this next part, we encourage you to take time, and truly focus on your retrospective.
 
 Take time to reflect on how your design has changed. Write in *prose* (i.e. do not bullet point your answers - it matters in how our brain processes the information). Make sure to include what were some major changes, and why you made them. What did you learn from this process? What would you do differently next time? What was the most challenging part of this process? For most students, it will be a paragraph or two. 
+
+The major change is to abstract the sorting and filtering functionality into separate classes. I initially didn't include them because they don't seem like objects, rather they are just functions to process data. But even for those functions, having a module to encapsulate the logic will improve ths code reusability and hiding away lots of heavy lifting from core classes like Planner.

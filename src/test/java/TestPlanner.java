@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import student.BoardGame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,7 @@ import student.GameData;
 
 /**
  * JUnit test for the Planner class.
- * 
+ *
  * Just a sample test to get you started, also using
  * setup to help out. 
  */
@@ -39,6 +40,45 @@ public class TestPlanner {
         assertEquals(1, filtered.size());
         assertEquals("Go", filtered.get(0).getName());
     }
-    
 
+    @Test
+    public void testFilterNameContains() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name~=go").toList();
+        assertEquals(4, filtered.size());
+
+        boolean hasGo = filtered.stream().anyMatch(g -> g.getName().equalsIgnoreCase("Go"));
+        boolean hasGolang = filtered.stream().anyMatch(g -> g.getName().equalsIgnoreCase("golang"));
+        assertTrue(hasGo);
+        assertTrue(hasGolang);
+    }
+
+    @Test
+    public void testMultipleFilters() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers>1,maxPlayers<6").toList();
+        assertEquals(2, filtered.size());
+        assertEquals("Chess", filtered.get(0).getName());
+        assertEquals("Go", filtered.get(1).getName());
+    }
+
+    @Test
+    public void testSortingDescending() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> sortedDesc = planner.filter("", GameData.NAME, false).toList();
+        String first = sortedDesc.get(0).getName();
+        String second = sortedDesc.get(1).getName();
+        assertTrue(first.compareToIgnoreCase(second) >= 0);
+    }
+
+    @Test
+    public void testReset() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name == Go").toList();
+        assertEquals(1, filtered.size());
+
+        planner.reset();
+        List<BoardGame> fullList = planner.filter("", GameData.NAME, true).toList();
+        assertEquals(games.size(), fullList.size());
+    }
 }

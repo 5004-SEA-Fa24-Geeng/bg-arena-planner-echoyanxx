@@ -51,11 +51,25 @@ public class GameList implements IGameList {
         games.clear();
     }
 
+    /**
+     * Returns the number of games stored in this list.
+     *
+     * @return the count of games
+     */
     @Override
     public int count() {
         return games.size();
     }
 
+    /**
+     * Saves the list of game names to a file.
+
+     * Each game name is written on a new line in the same order as returned by getGameNames().
+     * If the file's parent directories do not exist, they are created. If the file already exists, it
+     * is overwritten.
+     * @param filename the path to the file where game names will be saved
+     * @throws RuntimeException if an I/O error occurs during file writing
+     */
     @Override
     public void saveGame(String filename) {
         List<String> sortedNames = getGameNames();
@@ -77,6 +91,16 @@ public class GameList implements IGameList {
         }
     }
 
+
+    /**
+     * Adds game(s) to this list based on the provided string.
+     * The string may represent a single game name, a numeric index or index range, or the special
+     * keyword IGameList When a number or range is specified, the game(s) are chosen
+     * from the filtered stream provided as a basis.
+     * @param str      the string specifying which game(s) to add
+     * @param filtered a stream of BoardGame objects to use as the source for the addition
+     * @throws IllegalArgumentException if the string is not valid or no game matches the criteria
+     */
     @Override
     public void addToList(String str, Stream<BoardGame> filtered) throws IllegalArgumentException {
         // ADD_ALL special case
@@ -94,6 +118,13 @@ public class GameList implements IGameList {
         }
     }
 
+    /**
+     * Removes game(s) from this list based on the provided string.
+     * The string may specify a single game name, a numeric index or index range, or the special
+     * keyword  IGameList which causes the entire list to be cleared.
+     * @param str the string specifying which game(s) to remove
+     * @throws IllegalArgumentException if the string is not valid or no matching games are found
+     */
     @Override
     public void removeFromList(String str) throws IllegalArgumentException {
         List<BoardGame> toRemove = new ArrayList<>();
@@ -112,6 +143,16 @@ public class GameList implements IGameList {
         toRemove.forEach(games::remove);
     }
 
+
+    /**
+     * Helper method that filters a list of board games by a numeric index or range.
+     * Uses 1-based indexing. If the string contains a dash, it is interpreted as a range (e.g., "1-3").
+     * Otherwise, it is treated as a single index.
+     * @param str          the index or range string (e.g., "1" or "2-4")
+     * @param filteredList the list of BoardGame objects to filter
+     * @return a list containing the board game(s) corresponding to the specified index or range
+     * @throws IllegalArgumentException if the index or range is out of bounds or invalid
+     */
     private List<BoardGame> filterByIndexList(String str, List<BoardGame> filteredList)
             throws IllegalArgumentException {
         // Index range
@@ -134,12 +175,26 @@ public class GameList implements IGameList {
         return List.of(filteredList.get(index - 1));
     }
 
-
+    /**
+     * Helper method that converts a filtered stream to a list and applies numeric index filtering.
+     * @param str      the index or range string
+     * @param filtered a stream of BoardGame objects
+     * @return a list of board games that correspond to the index or range
+     * @throws IllegalArgumentException if the index or range is invalid
+     */
     private List<BoardGame> filterByIndex(String str, Stream<BoardGame> filtered) throws IllegalArgumentException {
         List<BoardGame> filteredList = filtered.toList();
         return filterByIndexList(str, filteredList);
     }
 
+    /**
+     * Helper method that finds a board game by name within a given stream.
+     * The comparison is case-insensitive.
+     * @param str    the game name to search for
+     * @param stream a stream of BoardGame objects
+     * @return the first matching BoardGame if found; null otherwise
+     * @throws IllegalArgumentException if an error occurs during the search
+     */
     private BoardGame findByName(String str, Stream<BoardGame> stream) throws IllegalArgumentException {
         return stream
                 .filter(bg -> bg.getName().equalsIgnoreCase(str))
