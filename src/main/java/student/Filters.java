@@ -66,6 +66,18 @@ public static boolean filter(BoardGame game, GameData column,
         };
     }
 
+    /**
+     * Compares a double game data value to a parsed double from value
+     * using the provided comparison.
+     * @param gameData the numeric value from the BoardGame
+     * @param op       the operation to apply (e.g. GREATER_THAN, EQUALS)
+     * @param value    the string representing a numeric value to compare
+     *                 against gameData
+     * @return true if gameData meets the specified condition,
+     * return false otherwise
+     * @throws NumberFormatException if {@code value} cannot be parsed as a double
+     * @throws IllegalArgumentException if the operation is unknown or unsupported
+     */
     public static boolean filterNumberFloat(double gameData, Operations op, String value) {
         double floatValue = Double.parseDouble(value);
 
