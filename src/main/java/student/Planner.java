@@ -5,9 +5,21 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 
+/**
+ * A planner that applies various filters and sorting options to a collection of BoardGame objects.
+ */
+
 public class Planner implements IPlanner {
-    Set<BoardGame> games;
-    Stream<BoardGame> remainingGames;
+
+    /**
+     * A {Set of BoardGame objects.
+     */
+    private final Set<BoardGame> games;
+
+    /**
+     * A stream representing the remaining (filtered) games after applying filter operations.
+     */
+    private Stream<BoardGame> remainingGames;
 
     public Planner(Set<BoardGame> games) {
         this.games = games;
