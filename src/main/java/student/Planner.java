@@ -21,6 +21,12 @@ public class Planner implements IPlanner {
      */
     private Stream<BoardGame> remainingGames;
 
+    /**
+     * Constructs a Planner with the given set of board games.
+     * Initializes the internal stream to contain all games.
+     *
+     * @param games the collection of  BoardGame objects to manage and filter
+     */
     public Planner(Set<BoardGame> games) {
         this.games = games;
         this.remainingGames = games.stream();
